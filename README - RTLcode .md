@@ -7,6 +7,7 @@ module RippleCarryNbit #(N=4) (input wire [N-1:0]a,b,
   assign w[0]=cin;
   assign cout=w[N];
 
+//setup module
   genvar i;
   generate
     for (i=0;i<N;i=i+1)begin
