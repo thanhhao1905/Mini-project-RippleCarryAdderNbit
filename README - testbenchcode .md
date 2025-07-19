@@ -11,6 +11,7 @@ module tbRCNB;
   integer err = 0;
   integer j, k, l;
 
+// setup RippleCarryNbit testbench
   RippleCarryNbit #(N) DUT(a, b, cin, s, cout);
 
   initial begin
@@ -42,6 +43,7 @@ module tbRCNB;
     #2 $finish;
   end
 
+//Checker to check all transit
   task check;
     begin
       if (s !== exp_s[N-1:0] || cout !== exp_c) begin
