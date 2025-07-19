@@ -1,33 +1,32 @@
-# mini-project-RippleCarryAdderNbit
-Verilog simulation of a parameterized N-bit Ripple Carry Adder.
+```verilog
+module RippleCarryNbit #(N=4) (input wire [N-1:0]a,b,
+                               input wire cin,
+                               output wire [N-1:0]s,
+                               output wire cout);
+  wire[N:0] w;
+  assign w[0]=cin;
+  assign cout=w[N];
 
-Ripple Carry Adder N-bit
-This project implements a Ripple Carry Adder (RCA) capable of adding N-bit binary numbers. The RCA is one of the most fundamental architectures for performing binary addition in digital systems, and this project provides a practical example of its operation.
+  genvar i;
+  generate
+    for (i=0;i<N;i=i+1)begin
+      full_adder fa(.a(a[i]),.b(b[i]),.cin(w[i]),.s(s[i]),.cout(w[i+1]));
+    end
+  endgenerate
+endmodule
 
-Key Features:
+module full_adder( input wire a,b,cin,
+                   output wire s,cout);
+  wire [2:0] w;
 
-Scalable: The design allows for easy configuration to add numbers of varying bit lengths (N bits).
+  half_adder ha0(.a(a),.b(b),.s(w[0]),.cout(w[1]));
+  half_adder ha1(.a(w[0]),.b(cin),.s(s),.cout(w[2]));
+  assign cout= w[1] | w[2];
 
-Modular Design: The project structure is built upon basic modules like Half Adders and Full Adders, clearly demonstrating how smaller logic blocks combine to form a larger system.
+endmodule
 
-Simulation and Testing: Includes testbench files to verify the correctness of the design, ensuring the adder functions accurately for various input cases.
-
-Educational Application: This serves as an excellent learning resource for anyone looking to gain a deeper understanding of computer architecture, digital circuit design, and Hardware Description Languages (HDLs) such as Verilog/VHDL.
-
-Purpose:
-
-The primary goal of this project is to provide a clear and fully functional illustrative example of a Ripple Carry Adder. It is highly beneficial for students, electronics engineers, or anyone interested in the field of chip design and embedded systems.
-
-Technologies Used:
-
-EDA tool - Icarus Verilog 12.0 tool, Visual Code Studio.
-
-How to Use:
-
-Clone this repository: git clone https://github.com/your-username/RippleCarryAdderNbit.git
-
-Open the project in the website EDA tool - Icarus Verilog 12.0 tool.
-
-Synthesize and implement the design.
-
-Run the testbench files for simulation and verification.
+module half_adder (input wire a,b,
+                   output wire s,cout);
+assign s=a^b;
+assign cout = a&b;
+endmodule
