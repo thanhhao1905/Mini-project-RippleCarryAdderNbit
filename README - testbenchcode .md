@@ -54,4 +54,9 @@ module tbRCNB;
       end
     end
   endtask
+
+initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars;
+  end
 endmodule
