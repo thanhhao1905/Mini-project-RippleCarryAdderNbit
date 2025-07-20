@@ -26,7 +26,7 @@ module tbRCNB;
           cin = k;
            exp_s = a + b + cin;
              exp_c = exp_s[N];
-          #1 check(s, cout, exp_s[N-1:0], exp_c);
+          #3 check(s, cout, exp_s[N-1:0], exp_c);
         end
       end
     end
